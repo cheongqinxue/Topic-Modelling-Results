@@ -68,7 +68,7 @@ def main():
             return_obj = wordcloud.visualize(words, per_word_coloring=False, enable_tooltip=False, 
                 layout='archimedean', width='50%', font_min=30, font_max=60)
             st.caption('All members of the topic')
-            st.dataframe({'Titles':x['all_titles'],'Truncated Content':x['all_trunc_content']}, height=500)
+            st.dataframe({'Titles':x['all_titles'],'Truncated Content':x['all_trunc_content']}, height=500, width=700)
 
     st.caption('All Topics List')
     renderdf(df, st)
