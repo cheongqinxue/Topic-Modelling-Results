@@ -10,8 +10,8 @@ import s3fs
 FS = s3fs.S3FileSystem(anon=False)
 
 @st.cache
-def load():
-    with FS.open(st.secrets['TOPIC_URL']) as f:
+def load(topic_url):
+    with FS.open(topic_url) as f:
         resp_text = r.read()
         
     df = pd.DataFrame([json.loads(l) for l in resp_text.splitlines()])
@@ -45,7 +45,7 @@ def renderdf(df, container):
     container.plotly_chart(fig, use_container_width=True)
 
 def main():
-    df_, index_df = load()
+    df_, index_df = load(st.secrets['TOPIC_URL'])
     df = df_.copy(deep=True)
     gettopic = st.sidebar.text_input(label='Enter a topic number to view')
     searchword = st.sidebar.text_input(label='Enter a keyword to search')
