@@ -6,13 +6,15 @@ from rapidfuzz import process, fuzz
 import plotly.graph_objects as go
 st.set_page_config(layout="wide")
 import requests
-
-FILE_URL='https://raw.githubusercontent.com/cheongqinxue/Topic-Modelling-Results/main/v1.1-150k/topic_info.json'
+import s3fs
 
 @st.cache
 def load():
-    resp = requests.get(FILE_URL)
-    df = pd.DataFrame([json.loads(l) for l in resp.text.splitlines()])
+    FS = s3fs.S3FileSystem(anon=False)
+    with FS.open(st.secrets['TOPIC_URL']) as f:
+        resp_text = r.read()
+        
+    df = pd.DataFrame([json.loads(l) for l in resp_text.splitlines()])
     index_df = pd.DataFrame()
     
     for i in range(len(df)):
