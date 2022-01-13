@@ -12,7 +12,7 @@ FS = s3fs.S3FileSystem(anon=False)
 @st.cache
 def load(topic_url):
     with FS.open(topic_url) as f:
-        resp_text = r.read()
+        resp_text = f.read()
         
     df = pd.DataFrame([json.loads(l) for l in resp_text.splitlines()])
     index_df = pd.DataFrame()
