@@ -7,10 +7,10 @@ import plotly.graph_objects as go
 st.set_page_config(layout="wide")
 import requests
 import s3fs
+FS = s3fs.S3FileSystem(anon=False)
 
 @st.cache
 def load():
-    FS = s3fs.S3FileSystem(anon=False)
     with FS.open(st.secrets['TOPIC_URL']) as f:
         resp_text = r.read()
         
